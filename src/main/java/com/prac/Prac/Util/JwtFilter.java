@@ -16,6 +16,7 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
+//jWT Filter
 @Component
 public class JwtFilter extends HttpFilter {
 
