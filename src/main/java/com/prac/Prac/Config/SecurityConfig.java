@@ -28,6 +28,7 @@ public class SecurityConfig {
     }
 
     @Bean
+    //스프링 시큐리티 필터체인을 정의 하는 메서드. HTTP요청이 들어올 때 어떤 보안 규칙이 적용될지 정의
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(csrf -> csrf.disable())  // CSRF 비활성화
@@ -46,11 +47,14 @@ public class SecurityConfig {
     }
 
     @Bean
+    //비밀번호를 안전하게 저장하기 위해 암호화 하는 빈입니다. 여기서는 BCryptPasswordEncoder를 사용 비밀번호를 해싱
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
     @Bean
+    //AuthenticationManager:사용자 인증을 처리하는 스프링 시큐리티의 핵심 클래스
+    //AuthenticationConfiguration에서 제공하는 AuthenticationManager를 반환하여 스프링 시큐리티의 인증 관리를 담당함
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
         return authenticationConfiguration.getAuthenticationManager();
     }

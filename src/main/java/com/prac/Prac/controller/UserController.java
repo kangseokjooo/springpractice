@@ -56,10 +56,10 @@ public class UserController {
     }
     @PostMapping("/authenticate")
     public ResponseEntity<?> createAuthenticationToken(@RequestBody UserEntity u) {
-        System.out.println("Attempting to authenticate user: " + u.getUserName());
+        System.out.println(u.getUserName());
 
         // 입력 받은 패스워드 확인
-        System.out.println("Password entered: " + u.getPw());
+        System.out.println(u.getPw());
 
         try {
             // 사용자 인증
@@ -68,8 +68,8 @@ public class UserController {
             );
         } catch (BadCredentialsException e) {
             // 잘못된 자격 증명 처리
-            System.out.println("Authentication failed: " + e.getMessage());
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
+            System.out.println("failed: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid");
         }
 
         // 유저 정보를 기반으로 JWT 생성
@@ -77,7 +77,7 @@ public class UserController {
         final String jwt = jwtUtil.generateToken(userDetails.getUsername());
 
         // JWT 값 출력
-        System.out.println("Generated JWT: " + jwt);
+        System.out.println(jwt);
 
         return ResponseEntity.ok(new AuthenticationResponse(jwt));
     }
